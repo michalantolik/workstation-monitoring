@@ -1,9 +1,13 @@
 using ServerModule;
 
 IHost host = Host.CreateDefaultBuilder(args)
+    .UseWindowsService(options =>
+    {
+        options.ServiceName = "Workstation Monitoring Server Service";
+    })
     .ConfigureServices(services =>
     {
-        services.AddHostedService<Worker>();
+        services.AddHostedService<ServerService>();
     })
     .Build();
 
