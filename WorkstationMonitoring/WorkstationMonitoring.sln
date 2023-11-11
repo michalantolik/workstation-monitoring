@@ -9,7 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientModule", "ClientModul
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1E384DBF-0E35-4E58-8971-9CF3339374B0}"
 	ProjectSection(SolutionItems) = preProject
-		..\publish.ps1 = ..\publish.ps1
+		..\Create-Services.ps1 = ..\Create-Services.ps1
+		..\Publish-App.ps1 = ..\Publish-App.ps1
 	EndProjectSection
 EndProject
 Global
