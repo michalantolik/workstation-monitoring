@@ -3,10 +3,20 @@ namespace ClientModule
     public class ClientService : BackgroundService
     {
         private readonly ILogger<ClientService> _logger;
+        private readonly ReportHubService _reportHubService;
 
-        public ClientService(ILogger<ClientService> logger)
+        public ClientService(
+            ILogger<ClientService> logger,
+            ReportHubService reportHubService)
         {
             _logger = logger;
+            _reportHubService = reportHubService;
+
+            //--------------------------------------------------------------------
+            // Connect to SignalR Hub
+            //--------------------------------------------------------------------
+
+            Task.Run(() => _reportHubService.ConnectAsync()).Wait();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -15,7 +25,12 @@ namespace ClientModule
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    _logger.LogInformation("Workstation Monitoring Client Service running at: {time}", DateTimeOffset.Now);
+                    //--------------------------------------------------------------------
+                    // Send message to SignalR Hub
+                    //--------------------------------------------------------------------
+
+                    _reportHubService.SendReport($"Hello World! - {DateTimeOffset.Now}");
+
                     await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                 }
             }

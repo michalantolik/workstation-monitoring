@@ -8,6 +8,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddHostedService<ClientService>();
+        services.AddSingleton<ReportHubService>();
     })
     .Build();
 

@@ -1,14 +1,22 @@
+using Microsoft.AspNetCore.Builder;
 using ServerModule;
 
-IHost host = Host.CreateDefaultBuilder(args)
-    .UseWindowsService(options =>
-    {
-        options.ServiceName = "Workstation Monitoring Server Service";
-    })
-    .ConfigureServices(services =>
-    {
-        services.AddHostedService<ServerService>();
-    })
-    .Build();
+var builder = WebApplication.CreateBuilder(args);
 
-await host.RunAsync();
+builder.Host.UseWindowsService(options =>
+{
+    options.ServiceName = "Workstation Monitoring Server Service";
+});
+
+builder.Services.AddSignalR();
+builder.Services.AddHostedService<ServerService>();
+
+var app = builder.Build();
+
+//--------------------------------------------------------------------
+// Link "/reporthub" endpoint with SignalR "ReportHub"
+//--------------------------------------------------------------------
+
+app.MapHub<ReportHub>("/reporthub");
+
+await app.RunAsync();

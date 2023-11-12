@@ -15,7 +15,6 @@ namespace ServerModule
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    _logger.LogInformation("Workstation Monitoring Server Service running at: {time}", DateTimeOffset.Now);
                     await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                 }
             }

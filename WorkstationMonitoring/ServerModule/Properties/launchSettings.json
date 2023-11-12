@@ -4,8 +4,17 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
+        "DOTNET_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5000/;https://localhost:5001/"
       }
     }
   }
 }
+
+//----------------------------------------------------------------------------
+// SignalR Hub URLs are defined in enviornement variable:
+//----------------------------------------------------------------------------
+//
+// "ASPNETCORE_URLS": "http://[hostname]:[port]/;https://[hostname]:[port]/"
+//
+//----------------------------------------------------------------------------
