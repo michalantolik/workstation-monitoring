@@ -3,13 +3,16 @@ namespace ClientModule
     public class ClientService : BackgroundService
     {
         private readonly ILogger<ClientService> _logger;
+        private readonly WorkstationInfoService _workstationInfoService;
         private readonly ReportHubService _reportHubService;
 
         public ClientService(
             ILogger<ClientService> logger,
+            WorkstationInfoService workstationInfoService,
             ReportHubService reportHubService)
         {
             _logger = logger;
+            _workstationInfoService = workstationInfoService;
             _reportHubService = reportHubService;
 
             //--------------------------------------------------------------------
@@ -26,10 +29,15 @@ namespace ClientModule
                 while (!stoppingToken.IsCancellationRequested)
                 {
                     //--------------------------------------------------------------------
-                    // Send message to SignalR Hub
+                    // Send workstation monitor reports to SignalR Hub
                     //--------------------------------------------------------------------
 
-                    _reportHubService.SendReport($"Hello World! - {DateTimeOffset.Now}");
+                    foreach (var monitor in _workstationInfoService.Monitors)
+                    {
+                        var report = monitor.GetMonitorReport();
+
+                        _reportHubService.SendReport(report);
+                    }
 
                     await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
                 }

@@ -16,4 +16,10 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClientSubmodule.DiskMonitoring\ClientSubmodule.DiskMonitor.csproj" />
+    <ProjectReference Include="..\ClientSubmodule.MemoryMonitor\ClientSubmodule.MemoryMonitor.csproj" />
+    <ProjectReference Include="..\ProcessorMonitoring\ClientSubmodule.ProcessorMonitor.csproj" />
+  </ItemGroup>
 </Project>

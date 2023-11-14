@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using Client.Interfaces;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace ClientModule
 {
@@ -36,11 +37,11 @@ namespace ClientModule
             }
         }
 
-        public async void SendReport(string reportMessage)
+        public async void SendReport(string report)
         {
-            await _connection.InvokeAsync("SendReport", reportMessage);
+            await _connection.InvokeAsync("SendReport", report);
 
-            _logger.LogInformation($"SENT REPORT: {reportMessage}");
+             _logger.LogInformation($"SENT REPORT: {report}");
         }
     }
 }

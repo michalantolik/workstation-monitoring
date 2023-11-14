@@ -1,4 +1,8 @@
+using Client.Interfaces;
 using ClientModule;
+using ClientSubmodule.DiskMonitor;
+using ClientSubmodule.MemoryMonitor;
+using ClientSubmodule.ProcessorMonitor;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService(options =>
@@ -8,7 +12,13 @@ IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
     {
         services.AddHostedService<ClientService>();
+
+        services.AddSingleton<WorkstationInfoService>();
         services.AddSingleton<ReportHubService>();
+
+        services.AddSingleton<IComponentMonitor, DiskMonitor>();
+        services.AddSingleton<IComponentMonitor, ProcessorMonitor>();
+        services.AddSingleton<IComponentMonitor, MemoryMonitor>();
     })
     .Build();
 
