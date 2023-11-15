@@ -1,16 +1,23 @@
+using Microsoft.Extensions.Configuration;
+
 namespace ClientModule
 {
     public class ClientService : BackgroundService
     {
+        private readonly IConfiguration _configuration;
         private readonly ILogger<ClientService> _logger;
         private readonly WorkstationInfoService _workstationInfoService;
         private readonly ReportHubService _reportHubService;
 
+        private readonly int _sendingIntervalInMinutes;
+
         public ClientService(
+            IConfiguration configuration,
             ILogger<ClientService> logger,
             WorkstationInfoService workstationInfoService,
             ReportHubService reportHubService)
         {
+            _configuration = configuration;
             _logger = logger;
             _workstationInfoService = workstationInfoService;
             _reportHubService = reportHubService;
@@ -20,6 +27,12 @@ namespace ClientModule
             //--------------------------------------------------------------------
 
             Task.Run(() => _reportHubService.ConnectAsync()).Wait();
+
+            //--------------------------------------------------------------------
+            // Set reports sending interval (from asppsettings.json)
+            //--------------------------------------------------------------------
+
+            _sendingIntervalInMinutes = _configuration.GetValue<int>("Reports:ReportsSendingIntervalInMinutes");
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -39,7 +52,7 @@ namespace ClientModule
                         _reportHubService.SendReport(report);
                     }
 
-                    await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
+                    await Task.Delay(TimeSpan.FromMinutes(_sendingIntervalInMinutes), stoppingToken);
                 }
             }
             catch (OperationCanceledException)
