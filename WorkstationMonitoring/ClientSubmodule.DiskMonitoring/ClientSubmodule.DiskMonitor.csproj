@@ -7,11 +7,17 @@
 
   <ItemGroup>
     <Compile Remove="Data\**" />
-    <Compile Remove="StructLayouts\**" />
     <EmbeddedResource Remove="Data\**" />
-    <EmbeddedResource Remove="StructLayouts\**" />
     <None Remove="Data\**" />
-    <None Remove="StructLayouts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Data\VolumeDiskExtentsReportDto.cs" />
+    <Compile Include="Data\VolumeDiskExtentDto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

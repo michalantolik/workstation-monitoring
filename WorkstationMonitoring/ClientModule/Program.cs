@@ -17,7 +17,10 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<ReportHubService>();
 
         services.AddSingleton<IComponentMonitor, DiskMonitor>();
+        services.AddSingleton<IWin32DiskApiWrapper, Win32DiskApiWrapper>();
+
         services.AddSingleton<IComponentMonitor, ProcessorMonitor>();
+
         services.AddSingleton<IComponentMonitor, MemoryMonitor>();
     })
     .Build();
