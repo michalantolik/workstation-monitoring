@@ -3,6 +3,7 @@ using ClientModule;
 using ClientSubmodule.DiskMonitor;
 using ClientSubmodule.MemoryMonitor;
 using ClientSubmodule.ProcessorMonitor;
+using Serilog;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService(options =>
@@ -11,6 +12,11 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
     .ConfigureServices(services =>
     {
+        services.AddLogging(loggingBuilder =>
+        {
+            loggingBuilder.AddSerilog();
+        });
+
         services.AddHostedService<ClientService>();
 
         services.AddSingleton<WorkstationInfoService>();
@@ -22,6 +28,12 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<IComponentMonitor, ProcessorMonitor>();
 
         services.AddSingleton<IComponentMonitor, MemoryMonitor>();
+    })
+    .UseSerilog((hostingContext, loggerConfiguration) =>
+    {
+        loggerConfiguration
+            .WriteTo.Console()
+            .WriteTo.File("clientLog.txt", rollingInterval: RollingInterval.Month);
     })
     .Build();
 
