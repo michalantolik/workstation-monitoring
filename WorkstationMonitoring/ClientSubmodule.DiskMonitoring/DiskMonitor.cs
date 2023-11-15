@@ -84,61 +84,6 @@ namespace ClientSubmodule.DiskMonitor
             string jsonReport = JsonSerializer.Serialize(report);
 
             return jsonReport;
-
-            //var success = diskApiWrapper.TryFindFirstVolumeName(
-            //    out IntPtr hFindVolumePtr,
-            //    out string volumeName);
-
-            //Console.WriteLine(success);
-            //Console.WriteLine(hFindVolumePtr);
-            //Console.WriteLine(volumeName);
-            //Console.WriteLine("*******************************");
-
-            //success = diskApiWrapper.TryFindVolumeNames(
-            //    out string[] volumeNames);
-
-            //Console.WriteLine(success);
-            //Console.WriteLine(String.Join(",", volumeNames));
-            //Console.WriteLine("*******************************");
-
-            //success = diskApiWrapper.TryGetVolumePathsForVolumeName(volumeName,
-            //    out string[] volumePaths,
-            //    trimBackslashInPaths: false);
-
-            //Console.WriteLine(success);
-            //Console.WriteLine(volumeName);
-            //Console.WriteLine(String.Join(",", volumePaths));
-            //Console.WriteLine("*******************************");
-
-            //foreach (var singlePath in volumePaths)
-            //{
-            //    success = diskApiWrapper.TryCreateVolumeSafeFileHandleFromVolumePath(
-            //        singlePath,
-            //        out SafeFileHandle? volumeSfh,
-            //        out int? errorCode,
-            //        out string? errorMessage);
-
-            //    Console.WriteLine(success);
-            //    Console.WriteLine(volumeName);
-            //    Console.WriteLine(volumeSfh);
-            //    Console.WriteLine(errorCode);
-            //    Console.WriteLine(errorMessage);
-            //    Console.WriteLine("*******************************");
-
-            //    success = diskApiWrapper.TryGetVolumeDiskExtent(
-            //        volumeSfh!,
-            //        out IntPtr outBuffer,
-            //        out DiskExtent? diskExtent);
-
-            //    Console.WriteLine(success);
-            //    Console.WriteLine(volumeSfh);
-            //    Console.WriteLine(outBuffer);
-            //    Console.WriteLine(diskExtent?.DiskNumber);
-            //    Console.WriteLine(diskExtent?.StartingOffset);
-            //    Console.WriteLine(diskExtent?.ExtentLength);
-            //    Console.WriteLine("*******************************");
-
-            return $"This is a dummy info about {ComponentType} - {DateTime.Now}";
         }
     }
 }
