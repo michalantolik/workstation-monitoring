@@ -8,7 +8,7 @@ This repository contains a simple workstation monitoring system, consisting of:
 
 ClientModule/ServerModule communication is implemented using SignalR:
 - ServerModule implements `ReportHub : Hub` which contains `SendReport(string report)` method
-- ClientModule connects to ServerModule and invokes its `SendReport(string report)` method 👉 see `ReportHubService.cs`
+- ClientModule connects to ServerModule and invokes its `SendReport(string report)` method
 
 Both ClientModule and ServerModule implement their core functality as Microsoft Windows Services:
 - `ClientService : BackgroundService`
